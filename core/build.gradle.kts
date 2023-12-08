@@ -1,12 +1,11 @@
 plugins {
-    alias(libs.plugins.com.android.application)
+    id("com.android.library")
     alias(libs.plugins.org.jetbrains.kotlin.android)
 }
 
 android {
-    compileSdk = AdevintaConfig.Android.compileSdkVersion
     namespace = "com.adevinta.core"
-
+    android.buildFeatures.buildConfig = true
     buildFeatures {
         compose = true
     }
@@ -19,8 +18,13 @@ android {
 dependencies {
 
     implementation(libs.core.ktx)
+    implementation(libs.lifecycle.runtime.ktx)
+    implementation(platform(libs.bom.compose))
+    implementation(libs.compose.ui)
+    implementation(libs.compose.nav)
     implementation(libs.appcompat)
     implementation(libs.material)
+    implementation(libs.koin.android)
     testImplementation(libs.junit)
     androidTestImplementation(libs.espresso.core)
 }

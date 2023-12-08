@@ -5,16 +5,8 @@ plugins {
 }
 
 android {
-    compileSdk = AdevintaConfig.Android.compileSdkVersion
-    namespace = "com.adevinta.core"
-
-    buildFeatures {
-        compose = true
-    }
-
-    composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.1"
-    }
+    namespace = "com.adevinta.data"
+    android.buildFeatures.buildConfig = true
 }
 
 dependencies {
@@ -25,6 +17,11 @@ dependencies {
     implementation(libs.compose.ui)
     implementation(libs.compose.nav)
     implementation(libs.kotlin.serialization)
+    implementation(libs.okhttp)
+    implementation(libs.okhttp.curl)
+    implementation(libs.retrofit.gson)
+    implementation(libs.retrofit.coroutine)
+    implementation(libs.gson)
 
     implementation(libs.koin.android)
 }

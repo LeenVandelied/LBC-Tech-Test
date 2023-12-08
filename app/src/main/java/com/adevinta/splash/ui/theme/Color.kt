@@ -1,4 +1,4 @@
-package com.adevinta.home.ui.theme
+package com.adevinta.splash.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
