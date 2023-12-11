@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.calculateEndPadding
 import androidx.compose.foundation.layout.calculateStartPadding
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.navigationBars
 import androidx.compose.foundation.layout.padding
@@ -35,6 +36,11 @@ import com.adevinta.design.system.components.DsSnackbars
 import com.adevinta.design.system.theme.LBCTechTestTheme
 import com.adevinta.domain.ResultState
 import com.adevinta.home.R
+import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
+import com.bumptech.glide.integration.compose.GlideImage
+import com.bumptech.glide.load.model.GlideUrl
+import com.bumptech.glide.load.model.Headers
+import com.bumptech.glide.load.model.LazyHeaders
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
@@ -74,6 +80,7 @@ internal fun AlbumListStateful(
     }
 }
 
+@OptIn(ExperimentalGlideComposeApi::class)
 @Composable
 private fun AlbumListScreen(
     albums: ResultState<List<AlbumEntity>>,
@@ -94,7 +101,6 @@ private fun AlbumListScreen(
                 )
             }
         }
-
     ) { paddings ->
         LazyColumn(
             modifier = Modifier.padding(
@@ -106,13 +112,20 @@ private fun AlbumListScreen(
         ) {
             if (albums.isFinished) {
                 items(items = requireNotNull(albums.getOrNull()), key = { it.id }) { album ->
+                    // Add header User-Agent
+                    val url = GlideUrl(
+                        album.thumbnailUrl,
+                        LazyHeaders.Builder()
+                            .addHeader("User-Agent",
+                                System.getProperty("http.agent") ?: "null"
+                            )
+                            .build()
+
+                    )
                     ListItem(
                         headlineContent = { Text(text = album.title) },
                         leadingContent = {
-                            Icon(
-                                painter = painterResource(id = R.drawable.ic_launcher_foreground),
-                                contentDescription = album.title
-                            )
+                            GlideImage(model = url, contentDescription = album.title)
                         }
                     )
                 }
