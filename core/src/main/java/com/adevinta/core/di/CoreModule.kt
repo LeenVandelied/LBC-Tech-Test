@@ -9,7 +9,7 @@ val dispatchersModule = module {
     single(named(MainDispatcher)) { Dispatchers.Default }
 }
 
-val coreModule = module {
+val coreModules = module {
     includes(dispatchersModule)
 }
 

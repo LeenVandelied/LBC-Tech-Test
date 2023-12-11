@@ -1,10 +1,11 @@
+@Suppress("DSL_SCOPE_VIOLATION")
 plugins {
     alias(libs.plugins.com.android.application)
     kotlin("android")
 }
 
 android {
-    namespace = "com.example.lbctechtest"
+    namespace = "com.adevinta.lbctechtest"
     android.buildFeatures.buildConfig = true
 
     defaultConfig {
@@ -37,6 +38,9 @@ dependencies {
 
     implementation(project(":core"))
     implementation(project(":data"))
+    implementation(project(":domain"))
+    implementation(project(":home"))
+    implementation(project(":design-system"))
 
     implementation(libs.core.ktx)
     implementation(libs.kotlin.stdlib)
@@ -52,4 +56,5 @@ dependencies {
     implementation(libs.compose.icons.extended)
     implementation(libs.compose.nav)
     implementation(libs.material3.window.size)
+    implementation(libs.core.splashscreen)
 }

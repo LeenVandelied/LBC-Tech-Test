@@ -1,6 +1,8 @@
+@Suppress("DSL_SCOPE_VIOLATION")
 plugins {
     id("com.android.library")
     alias(libs.plugins.org.jetbrains.kotlin.android)
+    alias(libs.plugins.com.google.devtools.ksp)
     kotlin("plugin.serialization")
 }
 
@@ -10,7 +12,7 @@ android {
 }
 
 dependencies {
-
+    implementation(project(":core"))
     implementation(libs.core.ktx)
     implementation(libs.lifecycle.runtime.ktx)
     implementation(platform(libs.bom.compose))
@@ -22,6 +24,9 @@ dependencies {
     implementation(libs.retrofit.gson)
     implementation(libs.retrofit.coroutine)
     implementation(libs.gson)
+    implementation(libs.paperdb)
+    implementation(libs.room)
+    ksp(libs.room.compiler)
 
     implementation(libs.koin.android)
 }
