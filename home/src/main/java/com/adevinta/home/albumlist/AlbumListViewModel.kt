@@ -1,5 +1,8 @@
 package com.adevinta.home.albumlist
 
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.adevinta.core.models.AlbumEntity
@@ -21,6 +24,8 @@ internal class AlbumListViewModel(
     internal val albumsState = _albums.asStateFlow()
     private val _sideEffect = Channel<Throwable>(Channel.BUFFERED)
     internal val sideEffect = _sideEffect.receiveAsFlow()
+    private var _isRefreshing by mutableStateOf(false)
+    internal val isRefreshing = _isRefreshing
 
     init {
         getAlbums()
@@ -28,7 +33,7 @@ internal class AlbumListViewModel(
 
     private fun getAlbums() {
         viewModelScope.launch {
-            getAlbumsUseCase.invoke().onSuccess { albums ->
+            getAlbumsUseCase.invoke(false).onSuccess { albums ->
                 _albums.update { ResultState.Success(albums) }
             }.onFailure { error ->
                 _albums.update { ResultState.Failure(error) }
@@ -37,4 +42,17 @@ internal class AlbumListViewModel(
         }
     }
 
+    fun refresh() {
+        viewModelScope.launch {
+            _isRefreshing = true
+            getAlbumsUseCase.invoke(true).onSuccess { albums ->
+                _albums.update { ResultState.Success(albums) }
+                _isRefreshing = false
+            }.onFailure { error ->
+                _albums.update { ResultState.Failure(error) }
+                _sideEffect.send(error)
+                _isRefreshing = false
+            }
+        }
+    }
 }

@@ -29,9 +29,11 @@ dependencies {
     implementation(libs.compose.nav)
     implementation(libs.compose.constraint)
     implementation(libs.material3)
+    implementation(libs.compose.icons.core)
     implementation(libs.compose.icons.extended)
     implementation(libs.glide.compose)
     implementation(libs.koin.compose)
     implementation(libs.koin.android)
     implementation(libs.compose.tooling.preview)
+    implementation(libs.material.pullrefresh)
 }

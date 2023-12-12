@@ -2,4 +2,5 @@
     <string name="app_name">My LBC Test</string>
     <string name="generic_error">An error occurred</string>
     <string name="no_album_error">No album found</string>
+    <string name="my_albums">My albums</string>
 </resources>
