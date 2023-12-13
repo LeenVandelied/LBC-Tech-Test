@@ -8,6 +8,4 @@ val repositoriesModule = module {
     single<AlbumRepository> { AlbumRepositoryImpl(get(), get()) }
 }
 
-val domainModules = module {
-    includes(repositoriesModule)
-}
+val domainModules = module { includes(repositoriesModule) }

@@ -6,6 +6,7 @@ import io.paperdb.Paper
 
 internal class LocalDbImpl : LocalDb {
     private lateinit var book: Book
+
     override fun init(context: Context) {
         Paper.init(context)
         book = Paper.book()

@@ -1,6 +1,7 @@
 package com.adevinta.core.models
 
 class NoNetworkException(message: String) : Throwable("No network Exception - $message")
+
 class HttpCodeException(code: Int, message: String) :
     Throwable("Network exception code $code - $message")
 

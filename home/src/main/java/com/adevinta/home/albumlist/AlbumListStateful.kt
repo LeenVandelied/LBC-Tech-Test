@@ -64,13 +64,12 @@ internal fun AlbumListStateful(
     val snackbarHostState = remember { SnackbarHostState() }
     val albumState = viewModel.albumsState.collectAsState()
 
-    //will not display refresh because data are the same
-    val pullRefreshState = rememberPullRefreshState(
-        refreshing = viewModel.isRefreshing,
-        onRefresh = {
-            viewModel.refresh()
-        }
-    )
+    // will not display refresh because data are the same
+    val pullRefreshState =
+        rememberPullRefreshState(
+            refreshing = viewModel.isRefreshing,
+            onRefresh = { viewModel.refresh() }
+        )
 
     AlbumListScreen(
         albums = albumState.value,
@@ -80,21 +79,26 @@ internal fun AlbumListStateful(
     )
 
     LaunchedEffect(sideEffect) {
-        sideEffect.onEach {
-            when (it) {
-                is NoAlbumsException -> {
-                    scope.launch {
-                        snackbarHostState.showSnackbar(message = context.getString(R.string.no_album_error))
+        sideEffect
+            .onEach {
+                when (it) {
+                    is NoAlbumsException -> {
+                        scope.launch {
+                            snackbarHostState.showSnackbar(
+                                message = context.getString(R.string.no_album_error)
+                            )
+                        }
                     }
-                }
-
-                else -> {
-                    scope.launch {
-                        snackbarHostState.showSnackbar(message = context.getString(R.string.generic_error))
+                    else -> {
+                        scope.launch {
+                            snackbarHostState.showSnackbar(
+                                message = context.getString(R.string.generic_error)
+                            )
+                        }
                     }
                 }
             }
-        }.launchIn(this)
+            .launchIn(this)
     }
 }
 
@@ -107,15 +111,13 @@ private fun AlbumListScreen(
     refreshing: Boolean
 ) {
     Scaffold(
-        modifier = Modifier
-            .background(color = Color.White)
-            .padding(WindowInsets.Companion.navigationBars.asPaddingValues()),
+        modifier =
+            Modifier.background(color = Color.White)
+                .padding(WindowInsets.Companion.navigationBars.asPaddingValues()),
         snackbarHost = {
             SnackbarHost(snackbarHostState) {
                 DsSnackbars.SnackbarError(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(16.dp),
+                    modifier = Modifier.fillMaxWidth().padding(16.dp),
                     message = it.visuals.message,
                     tagId = ""
                 )
@@ -123,47 +125,44 @@ private fun AlbumListScreen(
         },
         topBar = {
             TopAppBar(
-                title = {
-                    DsTexts.TitleMedium(title = stringResource(id = R.string.my_albums))
-                },
+                title = { DsTexts.TitleMedium(title = stringResource(id = R.string.my_albums)) },
                 colors = TopAppBarDefaults.mediumTopAppBarColors()
             )
         }
     ) { paddings ->
         Box(modifier = Modifier.fillMaxWidth()) {
             LazyColumn(
-                modifier = Modifier
-                    .padding(
-                        top = paddings.calculateTopPadding(),
-                        start = paddings.calculateStartPadding(layoutDirection = LayoutDirection.Ltr),
-                        end = paddings.calculateEndPadding(layoutDirection = LayoutDirection.Rtl)
-                    )
-                    .pullRefresh(state = pullRefreshState)
+                modifier =
+                    Modifier.padding(
+                            top = paddings.calculateTopPadding(),
+                            start =
+                                paddings.calculateStartPadding(
+                                    layoutDirection = LayoutDirection.Ltr
+                                ),
+                            end =
+                                paddings.calculateEndPadding(layoutDirection = LayoutDirection.Rtl)
+                        )
+                        .pullRefresh(state = pullRefreshState)
             ) {
                 if (!refreshing && albums.isFinished) {
                     items(items = requireNotNull(albums.getOrNull()), key = { it.id }) { album ->
                         // Add header User-Agent
-                        val url = GlideUrl(
-                            album.thumbnailUrl,
-                            LazyHeaders.Builder()
-                                .addHeader(
-                                    "User-Agent",
-                                    System.getProperty("http.agent") ?: "null"
-                                )
-                                .build()
-
-                        )
+                        val url =
+                            GlideUrl(
+                                album.thumbnailUrl,
+                                LazyHeaders.Builder()
+                                    .addHeader(
+                                        "User-Agent",
+                                        System.getProperty("http.agent") ?: "null"
+                                    )
+                                    .build()
+                            )
                         ListItem(
                             headlineContent = {
-                                DsTexts.BodyMedium(
-                                    title = album.title,
-                                    maxLines = 2
-                                )
+                                DsTexts.BodyMedium(title = album.title, maxLines = 2)
                             },
                             leadingContent = {
-                                Box(
-                                    modifier = Modifier.align(Alignment.Center)
-                                ) {
+                                Box(modifier = Modifier.align(Alignment.Center)) {
                                     GlideImage(
                                         model = url,
                                         contentDescription = album.title,
@@ -177,7 +176,6 @@ private fun AlbumListScreen(
                         Divider()
                     }
                 }
-
             }
             PullRefreshIndicator(
                 refreshing = refreshing,

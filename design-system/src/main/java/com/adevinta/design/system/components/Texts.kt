@@ -18,28 +18,30 @@ object DsTexts {
         text: String,
         color: Color = MaterialTheme.colorScheme.primary,
         align: TextAlign = TextAlign.Start
-    ) = DsTextsImpl(
-        modifier = modifier,
-        text = text,
-        color = color,
-        style = MaterialTheme.typography.buttonLarge,
-        align = align,
-        maxLines = 1
-    )
+    ) =
+        DsTextsImpl(
+            modifier = modifier,
+            text = text,
+            color = color,
+            style = MaterialTheme.typography.buttonLarge,
+            align = align,
+            maxLines = 1
+        )
 
     @Composable
     fun TitleMedium(
         modifier: Modifier = Modifier,
         title: String,
         align: TextAlign = TextAlign.Start
-    ) = DsTextsImpl(
-        modifier = modifier,
-        text = title,
-        color = MaterialTheme.colorScheme.onBackground,
-        style = MaterialTheme.typography.titleMedium,
-        align = align,
-        maxLines = 1
-    )
+    ) =
+        DsTextsImpl(
+            modifier = modifier,
+            text = title,
+            color = MaterialTheme.colorScheme.onBackground,
+            style = MaterialTheme.typography.titleMedium,
+            align = align,
+            maxLines = 1
+        )
 
     @Composable
     fun BodyMedium(
@@ -48,14 +50,15 @@ object DsTexts {
         color: Color = MaterialTheme.colorScheme.onBackground,
         align: TextAlign = TextAlign.Start,
         maxLines: Int = Int.MAX_VALUE
-    ) = DsTextsImpl(
-        modifier = modifier,
-        text = title,
-        color = color,
-        style = MaterialTheme.typography.bodyMedium,
-        align = align,
-        maxLines = maxLines
-    )
+    ) =
+        DsTextsImpl(
+            modifier = modifier,
+            text = title,
+            color = color,
+            style = MaterialTheme.typography.bodyMedium,
+            align = align,
+            maxLines = maxLines
+        )
 
     @Composable
     fun BodySmall(
@@ -64,14 +67,15 @@ object DsTexts {
         color: Color = MaterialTheme.colorScheme.onBackground,
         align: TextAlign = TextAlign.Start,
         maxLines: Int = Int.MAX_VALUE
-    ) = DsTextsImpl(
-        modifier = modifier,
-        text = title,
-        color = color,
-        style = MaterialTheme.typography.bodySmall,
-        align = align,
-        maxLines = maxLines
-    )
+    ) =
+        DsTextsImpl(
+            modifier = modifier,
+            text = title,
+            color = color,
+            style = MaterialTheme.typography.bodySmall,
+            align = align,
+            maxLines = maxLines
+        )
 }
 
 @Composable

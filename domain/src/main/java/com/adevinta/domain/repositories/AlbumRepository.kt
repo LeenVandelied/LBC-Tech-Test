@@ -14,17 +14,19 @@ internal class AlbumRepositoryImpl(
     private val albumLocalStore: AlbumLocalStore
 ) : AlbumRepository {
     override suspend fun getAlbums(forceRefresh: Boolean): Result<List<AlbumEntity>> {
-        val albums = if (forceRefresh) null else albumLocalStore.getLocalAlbums()
-
-        if (albums?.isSuccess == true) {
-            return Result.success(requireNotNull(albums.getOrNull()))
+        if (!forceRefresh) {
+            val localAlbumsResult = albumLocalStore.getLocalAlbums()
+            if (localAlbumsResult.isSuccess) {
+                return localAlbumsResult
+            }
         }
 
-        val remoteAlbums = albumDataStore.getAlbums()
-        if (remoteAlbums.isSuccess) {
-            albumLocalStore.saveLocalAlbums(remoteAlbums.getOrThrow())
-            return remoteAlbums
+        val remoteAlbumsResult = albumDataStore.getAlbums()
+        if (remoteAlbumsResult.isSuccess) {
+            remoteAlbumsResult.getOrNull()?.let { albumLocalStore.saveLocalAlbums(it) }
+            return remoteAlbumsResult
         }
+
         return Result.failure(NoAlbumsException)
     }
 }

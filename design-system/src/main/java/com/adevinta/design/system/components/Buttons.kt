@@ -31,18 +31,18 @@ object DsButton {
         isLoading: Boolean = false,
         isEnabled: Boolean = true,
         onClick: () -> Unit
-    ) = DsButtonImpl(
-        modifier = modifier,
-        text = text,
-        tagId = tagId,
-        isLoading = isLoading,
-        isEnabled = isEnabled,
-        colors = ButtonDefaults.buttonColors(
-            contentColor = MaterialTheme.colorScheme.onPrimary
-        ),
-        textColor = MaterialTheme.colorScheme.onPrimary,
-        onClick = onClick
-    )
+    ) =
+        DsButtonImpl(
+            modifier = modifier,
+            text = text,
+            tagId = tagId,
+            isLoading = isLoading,
+            isEnabled = isEnabled,
+            colors =
+                ButtonDefaults.buttonColors(contentColor = MaterialTheme.colorScheme.onPrimary),
+            textColor = MaterialTheme.colorScheme.onPrimary,
+            onClick = onClick
+        )
 
     @Composable
     fun TextButton(
@@ -53,19 +53,21 @@ object DsButton {
         isLoading: Boolean = false,
         isEnabled: Boolean = true,
         onClick: () -> Unit
-    ) = DsButtonImpl(
-        modifier = modifier,
-        text = text,
-        tagId = tagId,
-        isLoading = isLoading,
-        isEnabled = isEnabled,
-        colors = ButtonDefaults.textButtonColors(
-            contentColor = textColor,
-            containerColor = Color.Transparent
-        ),
-        textColor = textColor,
-        onClick = onClick
-    )
+    ) =
+        DsButtonImpl(
+            modifier = modifier,
+            text = text,
+            tagId = tagId,
+            isLoading = isLoading,
+            isEnabled = isEnabled,
+            colors =
+                ButtonDefaults.textButtonColors(
+                    contentColor = textColor,
+                    containerColor = Color.Transparent
+                ),
+            textColor = textColor,
+            onClick = onClick
+        )
 }
 
 @OptIn(ExperimentalComposeUiApi::class)
@@ -81,36 +83,22 @@ private fun DsButtonImpl(
     onClick: () -> Unit
 ) {
     Button(
-        modifier = modifier
-            .height(56.dp)
-            .semantics {
-                testTagsAsResourceId = true
-            }
-            .testTag(tagId),
+        modifier = modifier.height(56.dp).semantics { testTagsAsResourceId = true }.testTag(tagId),
         colors = colors,
         enabled = isEnabled,
         shape = MaterialTheme.shapes.small,
-        onClick = {
-            onClick()
-        }) {
+        onClick = { onClick() }
+    ) {
         if (isLoading) {
-            Box(
-                modifier = Modifier.fillMaxWidth(),
-                contentAlignment = Alignment.Center
-            ) {
+            Box(modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.Center) {
                 CircularProgressIndicator(
-                    modifier = Modifier
-                        .padding(8.dp)
-                        .size(16.dp),
+                    modifier = Modifier.padding(8.dp).size(16.dp),
                     strokeWidth = 2.dp,
                     color = textColor
                 )
             }
         } else {
-            DsTexts.TextButton(
-                text = text,
-                color = textColor
-            )
+            DsTexts.TextButton(text = text, color = textColor)
         }
     }
 }
@@ -122,6 +110,7 @@ private fun PrimaryButtonPreview() {
         DsButton.PrimaryButton(
             text = "Label",
             tagId = "",
-            onClick = {})
+            onClick = {}
+        )
     }
 }

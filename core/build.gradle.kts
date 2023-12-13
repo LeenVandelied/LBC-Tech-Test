@@ -7,17 +7,12 @@ plugins {
 android {
     namespace = "com.adevinta.core"
     android.buildFeatures.buildConfig = true
-    buildFeatures {
-        compose = true
-    }
+    buildFeatures { compose = true }
 
-    composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.1"
-    }
+    composeOptions { kotlinCompilerExtensionVersion = "1.5.1" }
 }
 
 dependencies {
-
     implementation(libs.core.ktx)
     implementation(libs.lifecycle.runtime.ktx)
     implementation(platform(libs.bom.compose))

@@ -19,11 +19,13 @@ class MainActivity : ComponentActivity() {
         installSplashScreen()
         super.onCreate(savedInstanceState)
         setContent {
-            setLBCNavigation(destination = HomeNavigationRoutesManagement.NavigationScreen.HOME.route)
+            setLBCNavigation(
+                destination = HomeNavigationRoutesManagement.NavigationScreen.HOME.route
+            )
         }
     }
 
-
+    // Just one destination for the moment
     @OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
     private fun setLBCNavigation(destination: String) {
         this.setContent {
@@ -32,13 +34,8 @@ class MainActivity : ComponentActivity() {
             CompositionLocalProvider(
                 LocalWindowSizeProvider provides WindowSizeProvider(windowSizeClass)
             ) {
-                LBCTechTestTheme {
-                    MainNavigation(
-                        destination = destination
-                    )
-                }
+                LBCTechTestTheme { MainNavigation(destination = destination) }
             }
         }
     }
-
 }

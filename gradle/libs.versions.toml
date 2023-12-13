@@ -17,7 +17,7 @@ glide-compose-version = "1.0.0-alpha.5"
 
 # Kotlin
 kotlin-version = "1.9.0"
-kotlin-gradle-plugin-version = "1.8.10"
+kotlin-gradle-plugin-version = "1.9.0"
 kotlin-serialization-version = "1.6.0"
 kotlin-coroutine-test-version = "1.7.2"
 
@@ -45,8 +45,8 @@ gson-version = "2.10.1"
 
 # Unit Testing
 junit-version = "4.13.2"
-mockito-core-version = "3.3.3"
-mockito-inline-version = "2.13.0"
+mockito-core-version = "5.8.0"
+mockito-inline-version = "5.2.0"
 espresso-core-version = "3.5.1"
 
 # Plugin

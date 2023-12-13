@@ -14,4 +14,3 @@ val appModules = module {
         domainModules
     )
 }
-    

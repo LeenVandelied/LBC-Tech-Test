@@ -17,7 +17,6 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
-
 val retrofitModule = module {
     single(named("OK_HTTP_CLIENT")) {
         OkHttpClient.Builder()
@@ -39,7 +38,9 @@ val retrofitModule = module {
 }
 
 val servicesModules = module {
-    single<AlbumApiService> { get<Retrofit>(named("ALBUM_API")).create(AlbumApiService::class.java) }
+    single<AlbumApiService> {
+        get<Retrofit>(named("ALBUM_API")).create(AlbumApiService::class.java)
+    }
 }
 
 val dataStoresModules = module {
@@ -51,7 +52,6 @@ val paperModule = module {
     single<LocalDb> { LocalDbImpl() }
     single<Cache> { CacheImpl() }
 }
-
 
 val dataModules = module {
     includes(retrofitModule, servicesModules, dataStoresModules, paperModule)

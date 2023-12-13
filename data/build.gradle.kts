@@ -27,6 +27,7 @@ dependencies {
     implementation(libs.paperdb)
     implementation(libs.room)
     ksp(libs.room.compiler)
-
     implementation(libs.koin.android)
+    testImplementation(libs.mockito.core)
+    testImplementation(libs.junit)
 }

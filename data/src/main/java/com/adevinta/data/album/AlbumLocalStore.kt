@@ -9,13 +9,12 @@ import com.adevinta.data.db.persistence.LocalDbKeys
 
 interface AlbumLocalStore {
     suspend fun getLocalAlbums(): Result<List<AlbumEntity>>
+
     suspend fun saveLocalAlbums(albums: List<AlbumEntity>)
 }
 
-internal class AlbumLocalStoreImpl(
-    private val cache: Cache,
-    private val localDb: LocalDb
-) : AlbumLocalStore {
+internal class AlbumLocalStoreImpl(private val cache: Cache, private val localDb: LocalDb) :
+    AlbumLocalStore {
     override suspend fun getLocalAlbums(): Result<List<AlbumEntity>> {
         // get temporary cached albums during navigation in the app
         val cacheAlbums = cache.read<List<AlbumEntity>>(key = CacheKeys.ALBUMS)
@@ -37,5 +36,4 @@ internal class AlbumLocalStoreImpl(
         localDb.save(key = LocalDbKeys.ALBUMS, data = albums)
         cache.save(key = CacheKeys.ALBUMS, data = albums)
     }
-
 }

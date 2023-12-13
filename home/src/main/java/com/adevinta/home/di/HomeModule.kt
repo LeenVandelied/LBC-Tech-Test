@@ -7,14 +7,8 @@ import org.koin.androidx.viewmodel.dsl.viewModelOf
 import org.koin.core.qualifier.named
 import org.koin.dsl.module
 
-val useCaseModules = module {
-    single { GetAlbumsUseCase(get(named(IoDispatcher)), get()) }
-}
+val useCaseModules = module { single { GetAlbumsUseCase(get(named(IoDispatcher)), get()) } }
 
-val viewModelModules = module {
-    viewModelOf(::AlbumListViewModel)
-}
+val viewModelModules = module { viewModelOf(::AlbumListViewModel) }
 
-val homeModules = module {
-    includes(useCaseModules, viewModelModules)
-}
+val homeModules = module { includes(useCaseModules, viewModelModules) }

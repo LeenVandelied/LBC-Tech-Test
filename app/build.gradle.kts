@@ -23,19 +23,12 @@ android {
         }
     }
 
-    buildFeatures {
-        compose = true
-    }
+    buildFeatures { compose = true }
 
-    composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.1"
-    }
-
-
+    composeOptions { kotlinCompilerExtensionVersion = "1.5.1" }
 }
 
 dependencies {
-
     implementation(project(":core"))
     implementation(project(":data"))
     implementation(project(":domain"))

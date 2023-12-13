@@ -8,13 +8,9 @@ android {
     namespace = "com.adevinta.home"
     android.buildFeatures.buildConfig = true
 
-    buildFeatures {
-        compose = true
-    }
+    buildFeatures { compose = true }
 
-    composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.1"
-    }
+    composeOptions { kotlinCompilerExtensionVersion = "1.5.1" }
 }
 
 dependencies {
@@ -29,11 +25,12 @@ dependencies {
     implementation(libs.compose.nav)
     implementation(libs.compose.constraint)
     implementation(libs.material3)
-    implementation(libs.compose.icons.core)
-    implementation(libs.compose.icons.extended)
     implementation(libs.glide.compose)
     implementation(libs.koin.compose)
     implementation(libs.koin.android)
     implementation(libs.compose.tooling.preview)
     implementation(libs.material.pullrefresh)
+    implementation(libs.kotlinx.coroutines.test)
+    testImplementation(libs.mockito.core)
+    testImplementation(libs.junit)
 }

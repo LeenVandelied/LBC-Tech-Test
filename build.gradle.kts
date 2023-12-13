@@ -12,7 +12,6 @@ plugins {
     alias(libs.plugins.com.google.devtools.ksp) apply false
 }
 
-
 subprojects {
     tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
         kotlinOptions.jvmTarget = "17"
@@ -25,11 +24,14 @@ open class ModuleProjectPlugin : Plugin<Project> {
     override fun apply(project: Project) {
         project.plugins.all {
             when (this) {
-                is com.android.build.gradle.AppPlugin -> project.extensions.getByType<com.android.build.gradle.AppExtension>()
-                    .apply { applyConfig() }
-
-                is com.android.build.gradle.LibraryPlugin -> project.extensions.getByType<com.android.build.gradle.LibraryExtension>()
-                    .apply { applyConfig() }
+                is com.android.build.gradle.AppPlugin ->
+                    project.extensions.getByType<com.android.build.gradle.AppExtension>().apply {
+                        applyConfig()
+                    }
+                is com.android.build.gradle.LibraryPlugin ->
+                    project.extensions
+                        .getByType<com.android.build.gradle.LibraryExtension>()
+                        .apply { applyConfig() }
             }
         }
     }
@@ -49,14 +51,11 @@ open class ModuleProjectPlugin : Plugin<Project> {
 
             testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
             consumerProguardFiles("consumer-rules.pro")
-
         }
-
 
         compileOptions {
             sourceCompatibility = JavaVersion.VERSION_17
             targetCompatibility = JavaVersion.VERSION_17
         }
-
     }
 }

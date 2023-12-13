@@ -7,9 +7,7 @@ import com.google.gson.JsonSyntaxException
 import retrofit2.HttpException
 import java.io.IOException
 
-internal suspend fun <T> runSafeHttpCall(
-    call: suspend () -> Result<T>
-): Result<T> {
+internal suspend fun <T> runSafeHttpCall(call: suspend () -> Result<T>): Result<T> {
     return try {
         call()
     } catch (e: HttpException) {

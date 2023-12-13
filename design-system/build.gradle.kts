@@ -8,13 +8,9 @@ android {
     namespace = "com.adevinta.design.system"
     android.buildFeatures.buildConfig = true
 
-    buildFeatures {
-        compose = true
-    }
+    buildFeatures { compose = true }
 
-    composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.1"
-    }
+    composeOptions { kotlinCompilerExtensionVersion = "1.5.1" }
 }
 
 dependencies {

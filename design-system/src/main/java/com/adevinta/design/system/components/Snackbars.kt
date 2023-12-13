@@ -14,15 +14,16 @@ object DsSnackbars {
         actionLabel: String? = null,
         tagId: String,
         actionClick: (() -> Unit)? = null
-    ) = SnackbarImpl(
-        modifier = modifier,
-        message = message,
-        actionLabel = actionLabel,
-        containerColor = MaterialTheme.colorScheme.error,
-        contentColor = MaterialTheme.colorScheme.onError,
-        tagId = tagId,
-        actionClick = actionClick,
-    )
+    ) =
+        SnackbarImpl(
+            modifier = modifier,
+            message = message,
+            actionLabel = actionLabel,
+            containerColor = MaterialTheme.colorScheme.error,
+            contentColor = MaterialTheme.colorScheme.onError,
+            tagId = tagId,
+            actionClick = actionClick,
+        )
 }
 
 @Composable

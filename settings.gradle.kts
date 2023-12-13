@@ -5,6 +5,7 @@ pluginManagement {
         gradlePluginPortal()
     }
 }
+
 dependencyResolutionManagement {
     repositories {
         google()
@@ -16,10 +17,17 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "LBCTechTest"
+
 include(":app")
+
 include(":data")
+
 include(":core")
+
 include(":home")
+
 include(":design-system")
+
 include(":design-system:core")
+
 include(":domain")

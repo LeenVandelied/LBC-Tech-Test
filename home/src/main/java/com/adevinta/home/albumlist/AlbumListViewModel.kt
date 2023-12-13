@@ -15,9 +15,7 @@ import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
-internal class AlbumListViewModel(
-    private val getAlbumsUseCase: GetAlbumsUseCase
-) : ViewModel() {
+internal class AlbumListViewModel(private val getAlbumsUseCase: GetAlbumsUseCase) : ViewModel() {
 
     private val _albums =
         MutableStateFlow<ResultState<List<AlbumEntity>>>(ResultState.Uninitialized)
@@ -33,26 +31,32 @@ internal class AlbumListViewModel(
 
     private fun getAlbums() {
         viewModelScope.launch {
-            getAlbumsUseCase.invoke(false).onSuccess { albums ->
-                _albums.update { ResultState.Success(albums) }
-            }.onFailure { error ->
-                _albums.update { ResultState.Failure(error) }
-                _sideEffect.send(error)
-            }
+            getAlbumsUseCase
+                .invoke(false)
+                .onSuccess { albums ->
+                    _albums.update { ResultState.Success(albums) }
+                }
+                .onFailure { error ->
+                    _albums.update { ResultState.Failure(error) }
+                    _sideEffect.send(error)
+                }
         }
     }
 
     fun refresh() {
         viewModelScope.launch {
             _isRefreshing = true
-            getAlbumsUseCase.invoke(true).onSuccess { albums ->
-                _albums.update { ResultState.Success(albums) }
-                _isRefreshing = false
-            }.onFailure { error ->
-                _albums.update { ResultState.Failure(error) }
-                _sideEffect.send(error)
-                _isRefreshing = false
-            }
+            getAlbumsUseCase
+                .invoke(true)
+                .onSuccess { albums ->
+                    _albums.update { ResultState.Success(albums) }
+                    _isRefreshing = false
+                }
+                .onFailure { error ->
+                    _albums.update { ResultState.Failure(error) }
+                    _sideEffect.send(error)
+                    _isRefreshing = false
+                }
         }
     }
 }

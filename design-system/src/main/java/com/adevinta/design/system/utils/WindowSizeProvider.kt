@@ -8,8 +8,8 @@ import androidx.compose.runtime.ProvidableCompositionLocal
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.staticCompositionLocalOf
 
-
-// ProvidableCompositionLocal for WindowSizeProvider, to be provided at the top level of the composition
+// ProvidableCompositionLocal for WindowSizeProvider, to be provided at the top level of the
+// composition
 val LocalWindowSizeProvider: ProvidableCompositionLocal<WindowSizeProvider> =
     staticCompositionLocalOf {
         // Error message to ensure LocalWindowSizeProvider is provided before usage
@@ -28,7 +28,5 @@ fun ProvideWindowSizeProvider(windowSize: WindowSizeClass, content: @Composable 
     val provider = remember { WindowSizeProvider(windowSize) }
 
     // Providing the WindowSizeProvider to the Composable tree using CompositionLocalProvider
-    CompositionLocalProvider(LocalWindowSizeProvider provides provider) {
-        content()
-    }
+    CompositionLocalProvider(LocalWindowSizeProvider provides provider) { content() }
 }

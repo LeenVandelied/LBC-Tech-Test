@@ -4,7 +4,6 @@ plugins {
     alias(libs.plugins.org.jetbrains.kotlin.android)
 }
 
-
 android {
     namespace = "com.adevinta.domain"
     android.buildFeatures.buildConfig = true
@@ -16,4 +15,6 @@ dependencies {
     implementation(libs.core.ktx)
 
     implementation(libs.koin.android)
+    testImplementation(libs.mockito.core)
+    testImplementation(libs.junit)
 }

@@ -10,7 +10,9 @@ val dispatchersModule = module {
 }
 
 val coreModules = module {
-    includes(dispatchersModule)
+    includes(
+        dispatchersModule
+    )
 }
 
 const val IoDispatcher = "io_dispatcher"
