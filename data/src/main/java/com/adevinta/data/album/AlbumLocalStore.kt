@@ -16,7 +16,7 @@ interface AlbumLocalStore {
 internal class AlbumLocalStoreImpl(private val cache: Cache, private val localDb: LocalDb) :
     AlbumLocalStore {
     override suspend fun getLocalAlbums(): Result<List<AlbumEntity>> {
-        // get temporary cached albums during navigation in the app
+        // get temporary cached albums during navigation in the app between different screen
         val cacheAlbums = cache.read<List<AlbumEntity>>(key = CacheKeys.ALBUMS)
         if (cacheAlbums != null) {
             return Result.success(cacheAlbums)

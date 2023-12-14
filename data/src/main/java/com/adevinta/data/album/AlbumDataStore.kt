@@ -6,6 +6,7 @@ import com.adevinta.data.mapper.toAlbumEntity
 import com.adevinta.data.remote.services.AlbumApiService
 import com.adevinta.data.runSafeHttpCall
 
+// DataStore get data from remote resources
 interface AlbumDataStore {
     suspend fun getAlbums(): Result<List<AlbumEntity>>
 }

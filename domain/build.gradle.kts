@@ -13,7 +13,6 @@ dependencies {
     implementation(project(":core"))
     implementation(project(":data"))
     implementation(libs.core.ktx)
-
     implementation(libs.koin.android)
     testImplementation(libs.mockito.core)
     testImplementation(libs.junit)

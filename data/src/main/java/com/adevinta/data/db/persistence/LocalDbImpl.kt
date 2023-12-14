@@ -4,6 +4,7 @@ import android.content.Context
 import io.paperdb.Book
 import io.paperdb.Paper
 
+// Here with clean Architecture we can replace PaperDB by Room ( for example ) very easily
 internal class LocalDbImpl : LocalDb {
     private lateinit var book: Book
 

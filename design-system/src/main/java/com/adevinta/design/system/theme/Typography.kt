@@ -52,13 +52,3 @@ val Typography =
                 lineHeight = TextUnit(16f, TextUnitType.Sp)
             )
     )
-
-// CUSTOM Typo
-val Typography.buttonLarge: TextStyle
-    get() =
-        TextStyle(
-            fontFamily = FontFamily.Default,
-            fontWeight = FontWeight.W700,
-            fontSize = 4.toSp(),
-            lineHeight = TextUnit(24f, TextUnitType.Sp)
-        )

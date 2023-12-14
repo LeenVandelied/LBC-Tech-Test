@@ -17,10 +17,6 @@ dependencies {
     implementation(libs.lifecycle.runtime.ktx)
     implementation(platform(libs.bom.compose))
     implementation(libs.compose.ui)
-    implementation(libs.compose.nav)
-    implementation(libs.appcompat)
     implementation(libs.material)
     implementation(libs.koin.android)
-    testImplementation(libs.junit)
-    androidTestImplementation(libs.espresso.core)
 }

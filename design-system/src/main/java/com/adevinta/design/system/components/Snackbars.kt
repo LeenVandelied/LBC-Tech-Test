@@ -10,19 +10,13 @@ object DsSnackbars {
     @Composable
     fun SnackbarError(
         modifier: Modifier = Modifier,
-        message: String,
-        actionLabel: String? = null,
-        tagId: String,
-        actionClick: (() -> Unit)? = null
+        message: String
     ) =
         SnackbarImpl(
             modifier = modifier,
             message = message,
-            actionLabel = actionLabel,
             containerColor = MaterialTheme.colorScheme.error,
-            contentColor = MaterialTheme.colorScheme.onError,
-            tagId = tagId,
-            actionClick = actionClick,
+            contentColor = MaterialTheme.colorScheme.onError
         )
 }
 
@@ -30,24 +24,11 @@ object DsSnackbars {
 private fun SnackbarImpl(
     modifier: Modifier,
     message: String,
-    actionLabel: String? = null,
     containerColor: Color,
-    contentColor: Color,
-    tagId: String,
-    actionClick: (() -> Unit)? = null
+    contentColor: Color
 ) {
     Snackbar(
         modifier = modifier,
-        action = {
-            if (actionLabel != null && actionClick != null) {
-                DsButton.TextButton(
-                    text = actionLabel,
-                    tagId = tagId,
-                    textColor = contentColor,
-                    onClick = actionClick
-                )
-            }
-        },
         containerColor = containerColor,
         contentColor = contentColor
     ) {

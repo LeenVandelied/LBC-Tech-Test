@@ -19,9 +19,7 @@ class MainApplication : Application() {
     private fun initKoin() {
         // start Koin!
         startKoin {
-            // Android context
             androidContext(this@MainApplication)
-            // modules
             modules(appModules)
         }
     }

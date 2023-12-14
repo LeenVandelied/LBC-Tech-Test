@@ -9,7 +9,6 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.style.TextOverflow
-import com.adevinta.design.system.theme.buttonLarge
 
 object DsTexts {
     @Composable
@@ -20,13 +19,13 @@ object DsTexts {
         align: TextAlign = TextAlign.Start
     ) =
         DsTextsImpl(
-            modifier = modifier,
-            text = text,
-            color = color,
-            style = MaterialTheme.typography.buttonLarge,
-            align = align,
-            maxLines = 1
-        )
+        modifier = modifier,
+        text = text,
+        color = color,
+        style = MaterialTheme.typography.bodyLarge,
+        align = align,
+        maxLines = 1
+    )
 
     @Composable
     fun TitleMedium(
@@ -39,6 +38,20 @@ object DsTexts {
             text = title,
             color = MaterialTheme.colorScheme.onBackground,
             style = MaterialTheme.typography.titleMedium,
+            align = align,
+            maxLines = 1
+        )
+    @Composable
+    fun TitleLarge(
+        modifier: Modifier = Modifier,
+        title: String,
+        align: TextAlign = TextAlign.Start
+    ) =
+        DsTextsImpl(
+            modifier = modifier,
+            text = title,
+            color = MaterialTheme.colorScheme.onBackground,
+            style = MaterialTheme.typography.titleLarge,
             align = align,
             maxLines = 1
         )
@@ -56,23 +69,6 @@ object DsTexts {
             text = title,
             color = color,
             style = MaterialTheme.typography.bodyMedium,
-            align = align,
-            maxLines = maxLines
-        )
-
-    @Composable
-    fun BodySmall(
-        modifier: Modifier = Modifier,
-        title: String,
-        color: Color = MaterialTheme.colorScheme.onBackground,
-        align: TextAlign = TextAlign.Start,
-        maxLines: Int = Int.MAX_VALUE
-    ) =
-        DsTextsImpl(
-            modifier = modifier,
-            text = title,
-            color = color,
-            style = MaterialTheme.typography.bodySmall,
             align = align,
             maxLines = maxLines
         )

@@ -15,19 +15,16 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.testTag
-import androidx.compose.ui.semantics.semantics
-import androidx.compose.ui.semantics.testTagsAsResourceId
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.adevinta.design.system.theme.LBCTechTestTheme
 
 object DsButton {
     @Composable
-    fun PrimaryButton(
+    fun ErrorButton(
         modifier: Modifier = Modifier,
         text: String,
-        tagId: String,
+        textColor: Color = MaterialTheme.colorScheme.onError,
         isLoading: Boolean = false,
         isEnabled: Boolean = true,
         onClick: () -> Unit
@@ -35,37 +32,14 @@ object DsButton {
         DsButtonImpl(
             modifier = modifier,
             text = text,
-            tagId = tagId,
             isLoading = isLoading,
             isEnabled = isEnabled,
-            colors =
-                ButtonDefaults.buttonColors(contentColor = MaterialTheme.colorScheme.onPrimary),
-            textColor = MaterialTheme.colorScheme.onPrimary,
-            onClick = onClick
-        )
-
-    @Composable
-    fun TextButton(
-        modifier: Modifier = Modifier,
-        text: String,
-        tagId: String,
-        textColor: Color = MaterialTheme.colorScheme.primary,
-        isLoading: Boolean = false,
-        isEnabled: Boolean = true,
-        onClick: () -> Unit
-    ) =
-        DsButtonImpl(
-            modifier = modifier,
-            text = text,
-            tagId = tagId,
-            isLoading = isLoading,
-            isEnabled = isEnabled,
-            colors =
-                ButtonDefaults.textButtonColors(
-                    contentColor = textColor,
-                    containerColor = Color.Transparent
-                ),
             textColor = textColor,
+            colors =
+                ButtonDefaults.buttonColors(
+                    contentColor = MaterialTheme.colorScheme.onError,
+                    containerColor = MaterialTheme.colorScheme.error
+                ),
             onClick = onClick
         )
 }
@@ -75,7 +49,6 @@ object DsButton {
 private fun DsButtonImpl(
     modifier: Modifier,
     text: String,
-    tagId: String,
     isLoading: Boolean,
     isEnabled: Boolean,
     colors: ButtonColors = ButtonDefaults.buttonColors(),
@@ -83,7 +56,7 @@ private fun DsButtonImpl(
     onClick: () -> Unit
 ) {
     Button(
-        modifier = modifier.height(56.dp).semantics { testTagsAsResourceId = true }.testTag(tagId),
+        modifier = modifier.height(56.dp),
         colors = colors,
         enabled = isEnabled,
         shape = MaterialTheme.shapes.small,
@@ -106,11 +79,5 @@ private fun DsButtonImpl(
 @Preview
 @Composable
 private fun PrimaryButtonPreview() {
-    LBCTechTestTheme {
-        DsButton.PrimaryButton(
-            text = "Label",
-            tagId = "",
-            onClick = {}
-        )
-    }
+    LBCTechTestTheme { DsButton.ErrorButton(text = "Label", onClick = {}) }
 }

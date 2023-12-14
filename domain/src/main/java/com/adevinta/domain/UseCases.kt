@@ -3,7 +3,8 @@ package com.adevinta.domain
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
 
-// Not used here but can be use to call Usecase without params
+// Not used here in this test but can be use to call Usecase without params
+// added to manage  the dispacherIO and the try catch
 abstract class UseCase<out T>(private val dispatcherIO: CoroutineDispatcher) {
     suspend fun invoke(): T =
         withContext(dispatcherIO) {

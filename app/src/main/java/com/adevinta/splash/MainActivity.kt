@@ -18,6 +18,8 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         installSplashScreen()
         super.onCreate(savedInstanceState)
+
+        // define the first target of navigation, we can manage different target if needed
         setContent {
             setLBCNavigation(
                 destination = HomeNavigationRoutesManagement.NavigationScreen.HOME.route
@@ -25,7 +27,7 @@ class MainActivity : ComponentActivity() {
         }
     }
 
-    // Just one destination for the moment
+    // Just one destination in this case
     @OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
     private fun setLBCNavigation(destination: String) {
         this.setContent {

@@ -15,16 +15,11 @@ android {
 
 dependencies {
     implementation(libs.core.ktx)
-
     implementation(platform(libs.bom.compose))
     implementation(libs.compose.ui)
     implementation(libs.compose.lifecycle.view)
     implementation(libs.material3)
     implementation(libs.material3.window.size)
-    implementation(libs.compose.tooling)
     implementation(libs.compose.icons.core)
-    implementation(libs.compose.icons.extended)
     implementation(libs.compose.tooling.preview)
-
-    implementation(libs.glide.compose)
 }
