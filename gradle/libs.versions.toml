@@ -107,6 +107,7 @@ gson = { module = "com.google.code.gson:gson", version.ref = "gson-version" }
 
 #PaperDb
 paperdb = { module = "io.github.pilgr:paperdb", version.ref = "paperdb-version" }
+room-runtime = { module = "androidx.room:room-runtime", version.ref = "room-version" }
 room = { module = "androidx.room:room-ktx", version.ref = "room-version" }
 room-compiler = { module = "androidx.room:room-compiler", version.ref = "room-version" }
 

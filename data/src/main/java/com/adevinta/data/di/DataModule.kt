@@ -1,11 +1,13 @@
 package com.adevinta.data.di
 
+import androidx.room.Room.databaseBuilder
 import com.adevinta.data.album.AlbumDataStore
 import com.adevinta.data.album.AlbumDataStoreImpl
 import com.adevinta.data.album.AlbumLocalStore
 import com.adevinta.data.album.AlbumLocalStoreImpl
 import com.adevinta.data.db.cache.Cache
 import com.adevinta.data.db.cache.CacheImpl
+import com.adevinta.data.db.persistence.LocalDatabase
 import com.adevinta.data.db.persistence.LocalDb
 import com.adevinta.data.db.persistence.LocalDbImpl
 import com.adevinta.data.remote.services.AlbumApiService
@@ -44,11 +46,22 @@ val servicesModules = module {
 }
 
 val dataStoresModules = module {
+    single {
+        databaseBuilder(
+            get(),
+            LocalDatabase::class.java,
+            "albums"
+        ).build()
+    }
     single<AlbumDataStore> { AlbumDataStoreImpl(get()) }
-    single<AlbumLocalStore> { AlbumLocalStoreImpl(get(), get()) }
+    single<AlbumLocalStore> { AlbumLocalStoreImpl(get() ,get(), get()) }
 }
 
 val paperModule = module {
+    single {
+        val database = get<LocalDatabase>()
+        database.localDbDao()
+    }
     single<LocalDb> { LocalDbImpl() }
     single<Cache> { CacheImpl() }
 }
