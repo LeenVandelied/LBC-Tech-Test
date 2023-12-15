@@ -21,7 +21,6 @@ dependencies {
     implementation(libs.okhttp.curl)
     implementation(libs.retrofit.gson)
     implementation(libs.retrofit.coroutine)
-    implementation(libs.paperdb)
     implementation(libs.room)
     implementation(libs.room.runtime)
     ksp(libs.room.compiler)

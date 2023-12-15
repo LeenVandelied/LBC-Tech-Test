@@ -4,9 +4,7 @@ import com.adevinta.core.models.AlbumEntity
 import com.adevinta.core.models.NoAlbumsException
 import com.adevinta.data.db.cache.Cache
 import com.adevinta.data.db.cache.CacheKeys
-import com.adevinta.data.db.persistence.LocalDb
 import com.adevinta.data.db.persistence.LocalDbDao
-import com.adevinta.data.db.persistence.LocalDbKeys
 import com.adevinta.data.mapper.toAlbumEntity
 import com.adevinta.data.mapper.toAlbumRoomEntity
 
@@ -16,7 +14,7 @@ interface AlbumLocalStore {
     suspend fun saveLocalAlbums(albums: List<AlbumEntity>)
 }
 
-internal class AlbumLocalStoreImpl(private val cache: Cache, private val localDb: LocalDb, private val localDbDao: LocalDbDao) :
+internal class AlbumLocalStoreImpl(private val cache: Cache, private val localDbDao: LocalDbDao) :
     AlbumLocalStore {
     override suspend fun getLocalAlbums(): Result<List<AlbumEntity>> {
 
@@ -37,7 +35,6 @@ internal class AlbumLocalStoreImpl(private val cache: Cache, private val localDb
 
     override suspend fun saveLocalAlbums(albums: List<AlbumEntity>) {
         localDbDao.insertAll(albums.map { it.toAlbumRoomEntity() })
-        localDb.save(key = LocalDbKeys.ALBUMS, data = albums)
         cache.save(key = CacheKeys.ALBUMS, data = albums)
     }
 }

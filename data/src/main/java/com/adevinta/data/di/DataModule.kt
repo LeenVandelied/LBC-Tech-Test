@@ -8,8 +8,6 @@ import com.adevinta.data.album.AlbumLocalStoreImpl
 import com.adevinta.data.db.cache.Cache
 import com.adevinta.data.db.cache.CacheImpl
 import com.adevinta.data.db.persistence.LocalDatabase
-import com.adevinta.data.db.persistence.LocalDb
-import com.adevinta.data.db.persistence.LocalDbImpl
 import com.adevinta.data.remote.services.AlbumApiService
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import okhttp3.OkHttpClient
@@ -54,20 +52,19 @@ val dataStoresModules = module {
         ).build()
     }
     single<AlbumDataStore> { AlbumDataStoreImpl(get()) }
-    single<AlbumLocalStore> { AlbumLocalStoreImpl(get() ,get(), get()) }
+    single<AlbumLocalStore> { AlbumLocalStoreImpl(get() ,get()) }
 }
 
-val paperModule = module {
+val dbModule = module {
     single {
         val database = get<LocalDatabase>()
         database.localDbDao()
     }
-    single<LocalDb> { LocalDbImpl() }
     single<Cache> { CacheImpl() }
 }
 
 val dataModules = module {
-    includes(retrofitModule, servicesModules, dataStoresModules, paperModule)
+    includes(retrofitModule, servicesModules, dataStoresModules, dbModule)
 }
 
 private const val TIMEOUT_SECONDS = 120L

@@ -36,9 +36,9 @@ material-pullrefresh-version = "1.0.0"
 retrofit-coroutines-adapter-version = "0.9.2"
 retrofit-gson-version = "2.7.1"
 
-# Paperdb
-paperdb-version = "2.7.2"
+# room
 room-version = "2.6.1"
+paging-version = "3.3.0-alpha02"
 
 # Gson
 gson-version = "2.10.1"
@@ -105,11 +105,12 @@ retrofit-coroutine = { module = "com.jakewharton.retrofit:retrofit2-kotlin-corou
 retrofit-gson = { module = "com.squareup.retrofit2:converter-gson", version.ref = "retrofit-gson-version" }
 gson = { module = "com.google.code.gson:gson", version.ref = "gson-version" }
 
-#PaperDb
-paperdb = { module = "io.github.pilgr:paperdb", version.ref = "paperdb-version" }
+#room
 room-runtime = { module = "androidx.room:room-runtime", version.ref = "room-version" }
 room = { module = "androidx.room:room-ktx", version.ref = "room-version" }
 room-compiler = { module = "androidx.room:room-compiler", version.ref = "room-version" }
+paging-runtime = { module = "androidx.paging:paging-runtime", version.ref = "paging-version" }
+paging-compose = { module = "androidx.paging:paging-compose", version.ref = "paging-version" }
 
 #Unit Test
 arch-core = { module = "androidx.arch.core:core-testing", version.ref = "androidx-arch-version" }
