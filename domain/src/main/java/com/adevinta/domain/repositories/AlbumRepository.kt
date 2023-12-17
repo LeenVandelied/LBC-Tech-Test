@@ -7,7 +7,7 @@ import com.adevinta.data.album.AlbumLocalStore
 import kotlinx.coroutines.flow.Flow
 
 interface AlbumRepository {
-    fun getAlbumsPaged(forceRefresh: Boolean = false): Flow<PagingData<AlbumEntity>>
+    fun getAlbumsPaged(): Flow<PagingData<AlbumEntity>>
 
     suspend fun refreshAlbums()
 }
@@ -17,7 +17,7 @@ internal class AlbumRepositoryImpl(
     private val albumLocalStore: AlbumLocalStore
 ) : AlbumRepository {
 
-    override fun getAlbumsPaged(forceRefresh: Boolean): Flow<PagingData<AlbumEntity>> {
+    override fun getAlbumsPaged(): Flow<PagingData<AlbumEntity>> {
         return albumLocalStore.getLocalAlbumsPaged()
     }
 

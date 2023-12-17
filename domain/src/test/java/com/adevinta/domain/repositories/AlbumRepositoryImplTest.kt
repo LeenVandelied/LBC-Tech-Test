@@ -1,8 +1,9 @@
+package com.adevinta.domain.repositories
+
 import androidx.paging.PagingData
 import com.adevinta.core.models.AlbumEntity
 import com.adevinta.data.album.AlbumDataStore
 import com.adevinta.data.album.AlbumLocalStore
-import com.adevinta.domain.repositories.AlbumRepositoryImpl
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
@@ -32,7 +33,7 @@ class AlbumRepositoryImplTest {
         val fakeFlow: Flow<PagingData<AlbumEntity>> = flowOf(PagingData.empty())
         whenever(albumLocalStore.getLocalAlbumsPaged()).thenReturn(fakeFlow)
 
-        albumRepositoryImpl.getAlbumsPaged(false)
+        albumRepositoryImpl.getAlbumsPaged()
 
         verify(albumLocalStore).getLocalAlbumsPaged()
     }

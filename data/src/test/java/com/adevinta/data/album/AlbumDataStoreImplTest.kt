@@ -1,5 +1,6 @@
+package com.adevinta.data.album
+
 import com.adevinta.core.models.AlbumEntity
-import com.adevinta.data.album.AlbumDataStoreImpl
 import com.adevinta.data.models.responses.AlbumResponse
 import com.adevinta.data.remote.services.AlbumApiService
 import kotlinx.coroutines.ExperimentalCoroutinesApi

@@ -26,12 +26,12 @@ internal class AlbumListViewModel(
     internal val sideEffect = _sideEffect.receiveAsFlow()
 
     init {
-        getAlbums()
+        refresh()
     }
 
     private fun getAlbums() {
         viewModelScope.launch {
-            getAlbumsPagedUseCase.execute(false).cachedIn(this).collectLatest { pagingData ->
+            getAlbumsPagedUseCase.execute().cachedIn(this).collectLatest { pagingData ->
                 _albums.value = pagingData
             }
         }
@@ -39,7 +39,7 @@ internal class AlbumListViewModel(
 
     fun refresh() {
         viewModelScope.launch {
-            refreshAlbumsUseCase.invoke(true)
+            refreshAlbumsUseCase.invoke()
             getAlbums()
         }
     }

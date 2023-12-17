@@ -1,5 +1,6 @@
+package com.adevinta.home.albumlist.domain
+
 import com.adevinta.domain.repositories.AlbumRepository
-import com.adevinta.home.albumlist.domain.RefreshAlbumsUseCase
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.UnconfinedTestDispatcher
@@ -25,7 +26,7 @@ class RefreshAlbumsUseCaseTest {
     @Test
     fun `execute calls refreshAlbums on albumRepository`() =
         runTest(testDispatcher) {
-            refreshAlbumsUseCase.execute(true)
+            refreshAlbumsUseCase.execute()
 
             verify(albumRepository).refreshAlbums()
         }

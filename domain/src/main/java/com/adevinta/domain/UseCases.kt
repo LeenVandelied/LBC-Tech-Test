@@ -31,8 +31,3 @@ abstract class UseCaseWithParams<in P, out R>(private val dispatcherIO: Coroutin
 
     abstract suspend fun execute(params: P): R
 }
-
-// Used to call UseCase with Params and return only Flow
-abstract class FlowUseCaseWithParams<in P, out R> {
-    abstract fun execute(params: P): R
-}

@@ -1,4 +1,5 @@
-import com.adevinta.data.mapper.toAlbumEntity
+package com.adevinta.data.mapper
+
 import com.adevinta.data.models.responses.AlbumResponse
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test

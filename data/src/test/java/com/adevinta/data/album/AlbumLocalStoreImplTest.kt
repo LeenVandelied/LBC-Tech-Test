@@ -1,5 +1,6 @@
+package com.adevinta.data.album
+
 import com.adevinta.core.models.AlbumEntity
-import com.adevinta.data.album.AlbumLocalStoreImpl
 import com.adevinta.data.db.persistence.LocalDbDao
 import com.adevinta.data.mapper.toAlbumRoomEntity
 import kotlinx.coroutines.runBlocking

@@ -1,7 +1,8 @@
+package com.adevinta.home.albumlist.domain
+
 import androidx.paging.PagingData
 import com.adevinta.core.models.AlbumEntity
 import com.adevinta.domain.repositories.AlbumRepository
-import com.adevinta.home.albumlist.domain.GetAlbumsPagedUseCase
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
@@ -28,9 +29,9 @@ class GetAlbumsPagedUseCaseTest {
     @Test
     fun `execute calls albumRepository getAlbumsPaged with correct params`() = runTest {
         val fakePagingData: Flow<PagingData<AlbumEntity>> = flowOf(PagingData.empty())
-        whenever(albumRepository.getAlbumsPaged(forceRefresh = true)).thenReturn(fakePagingData)
+        whenever(albumRepository.getAlbumsPaged()).thenReturn(fakePagingData)
 
-        val result = getAlbumsPagedUseCase.execute(true)
+        val result = getAlbumsPagedUseCase.execute()
 
         assertNotNull(result)
         assertEquals(fakePagingData, result)
