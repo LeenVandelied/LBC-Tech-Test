@@ -21,5 +21,6 @@ dependencies {
     implementation(libs.material3)
     implementation(libs.material3.window.size)
     implementation(libs.compose.icons.core)
-    implementation(libs.compose.tooling.preview)
+    implementation(libs.compose.tooling)
+    implementation(libs.compose.activity)
 }

@@ -1,91 +1,51 @@
+import androidx.paging.PagingData
 import com.adevinta.core.models.AlbumEntity
-import com.adevinta.core.models.NoAlbumsException
 import com.adevinta.data.album.AlbumDataStore
 import com.adevinta.data.album.AlbumLocalStore
 import com.adevinta.domain.repositories.AlbumRepositoryImpl
-import kotlinx.coroutines.runBlocking
-import org.junit.Assert.assertEquals
-import org.junit.Assert.assertTrue
-import org.junit.Before
-import org.junit.Test
-import org.mockito.Mockito
-import org.mockito.Mockito.mock
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flowOf
+import kotlinx.coroutines.test.runTest
+import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.Test
+import org.mockito.kotlin.mock
+import org.mockito.kotlin.verify
+import org.mockito.kotlin.whenever
 
+@ExperimentalCoroutinesApi
 class AlbumRepositoryImplTest {
 
     private lateinit var albumDataStore: AlbumDataStore
     private lateinit var albumLocalStore: AlbumLocalStore
-    private lateinit var albumRepository: AlbumRepositoryImpl
+    private lateinit var albumRepositoryImpl: AlbumRepositoryImpl
 
-    @Before
-    fun setUp() {
-        albumDataStore = mock(AlbumDataStore::class.java)
-        albumLocalStore = mock(AlbumLocalStore::class.java)
-        albumRepository = AlbumRepositoryImpl(albumDataStore, albumLocalStore)
+    @BeforeEach
+    fun setup() {
+        albumDataStore = mock()
+        albumLocalStore = mock()
+        albumRepositoryImpl = AlbumRepositoryImpl(albumDataStore, albumLocalStore)
     }
 
     @Test
-    fun `getAlbums returns albums from local store when not forcing refresh and local data is available`() =
-        runBlocking {
-            val localAlbums =
-                Result.success(
-                    listOf(
-                        AlbumEntity(
-                            1,
-                            "Local Album",
-                            "http://example.com/1",
-                            "http://example.com/11"
-                        )
-                    )
-                )
-            Mockito.`when`(albumLocalStore.getLocalAlbums()).thenReturn(localAlbums)
+    fun `getAlbumsPaged calls getLocalAlbumsPaged from albumLocalStore`() = runTest {
+        val fakeFlow: Flow<PagingData<AlbumEntity>> = flowOf(PagingData.empty())
+        whenever(albumLocalStore.getLocalAlbumsPaged()).thenReturn(fakeFlow)
 
-            val result = albumRepository.getAlbums(forceRefresh = false)
+        albumRepositoryImpl.getAlbumsPaged(false)
 
-            assertEquals(localAlbums, result)
+        verify(albumLocalStore).getLocalAlbumsPaged()
+    }
+
+    @Test
+    fun `refreshAlbums calls getAlbums from albumDataStore and saveLocalAlbums from albumLocalStore on success`() =
+        runTest {
+            val fakeAlbums = listOf(AlbumEntity(1, "Test Album", "url", "thumbnail"))
+            whenever(albumDataStore.getAlbums()).thenReturn(Result.success(fakeAlbums))
+
+            albumRepositoryImpl.refreshAlbums()
+
+            verify(albumDataStore).getAlbums()
+            verify(albumLocalStore).saveLocalAlbums(fakeAlbums)
         }
-
-    @Test
-    fun `getAlbums fetches from remote when forcing refresh`() = runBlocking {
-        val remoteAlbums =
-            Result.success(
-                listOf(
-                    AlbumEntity(1, "Remote Album", "http://example.com/2", "http://example.com/22")
-                )
-            )
-        Mockito.`when`(albumDataStore.getAlbums()).thenReturn(remoteAlbums)
-
-        val result = albumRepository.getAlbums(forceRefresh = true)
-
-        assertEquals(remoteAlbums, result)
-    }
-
-    @Test
-    fun `getAlbums fetches from remote when local store is empty`() = runBlocking {
-        Mockito.`when`(albumLocalStore.getLocalAlbums())
-            .thenReturn(Result.failure(NoAlbumsException))
-        val remoteAlbums =
-            Result.success(
-                listOf(
-                    AlbumEntity(1, "Remote Album", "http://example.com/3", "http://example.com/3")
-                )
-            )
-        Mockito.`when`(albumDataStore.getAlbums()).thenReturn(remoteAlbums)
-
-        val result = albumRepository.getAlbums(forceRefresh = false)
-
-        assertEquals(remoteAlbums, result)
-    }
-
-    @Test
-    fun `getAlbums returns failure when no albums are available`() = runBlocking {
-        Mockito.`when`(albumLocalStore.getLocalAlbums())
-            .thenReturn(Result.failure(NoAlbumsException))
-        Mockito.`when`(albumDataStore.getAlbums()).thenReturn(Result.failure(NoAlbumsException))
-
-        val result = albumRepository.getAlbums(forceRefresh = false)
-
-        assertTrue(result.isFailure)
-        assertTrue(result.exceptionOrNull() is NoAlbumsException)
-    }
 }

@@ -23,8 +23,16 @@ dependencies {
     implementation(libs.retrofit.coroutine)
     implementation(libs.room)
     implementation(libs.room.runtime)
+    implementation(libs.room.paging)
     ksp(libs.room.compiler)
+    implementation(libs.paging.runtime)
+    implementation(libs.paging.compose)
     implementation(libs.koin.android)
-    testImplementation(libs.mockito.core)
+    testImplementation(libs.mockito.kotlin)
     testImplementation(libs.junit)
+    testImplementation(libs.junit.api)
+    testImplementation(libs.junit.engine)
+    testImplementation(libs.kotlinx.coroutines.test)
 }
+
+tasks.withType<Test> { useJUnitPlatform() }

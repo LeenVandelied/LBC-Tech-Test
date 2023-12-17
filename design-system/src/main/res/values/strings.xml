@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="dummy_title">Oops</string>
+    <string name="dummy_subtitle">Please try again later</string>
+    <string name="dummy_button">Test</string>
+</resources>

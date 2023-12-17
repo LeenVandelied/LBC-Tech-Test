@@ -1,40 +1,34 @@
 package com.adevinta.data.album
 
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.PagingData
+import androidx.paging.map
 import com.adevinta.core.models.AlbumEntity
-import com.adevinta.core.models.NoAlbumsException
-import com.adevinta.data.db.cache.Cache
-import com.adevinta.data.db.cache.CacheKeys
 import com.adevinta.data.db.persistence.LocalDbDao
 import com.adevinta.data.mapper.toAlbumEntity
 import com.adevinta.data.mapper.toAlbumRoomEntity
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 
 interface AlbumLocalStore {
-    suspend fun getLocalAlbums(): Result<List<AlbumEntity>>
+    fun getLocalAlbumsPaged(): Flow<PagingData<AlbumEntity>>
 
-    suspend fun saveLocalAlbums(albums: List<AlbumEntity>)
+    fun saveLocalAlbums(albums: List<AlbumEntity>)
 }
 
-internal class AlbumLocalStoreImpl(private val cache: Cache, private val localDbDao: LocalDbDao) :
-    AlbumLocalStore {
-    override suspend fun getLocalAlbums(): Result<List<AlbumEntity>> {
+internal class AlbumLocalStoreImpl(private val localDbDao: LocalDbDao) : AlbumLocalStore {
+    override fun getLocalAlbumsPaged(): Flow<PagingData<AlbumEntity>> =
+        Pager(
+                config = PagingConfig(pageSize = 20, enablePlaceholders = true, maxSize = 200),
+                pagingSourceFactory = { localDbDao.getAllPaged() }
+            )
+            .flow
+            .map { pagingData ->
+                pagingData.map { albumRoomEntity -> albumRoomEntity.toAlbumEntity() }
+            }
 
-        // get temporary cached albums during navigation in the app between different screen
-        val cacheAlbums = cache.read<List<AlbumEntity>>(key = CacheKeys.ALBUMS)
-        if (cacheAlbums != null) {
-            return Result.success(cacheAlbums)
-        }
-
-        val dbAlbumsDao = localDbDao.getAll()
-        if (dbAlbumsDao.isNotEmpty()) {
-            return Result.success(dbAlbumsDao.map { it.toAlbumEntity() })
-        }
-
-        // return exception if no data
-        return Result.failure(NoAlbumsException)
-    }
-
-    override suspend fun saveLocalAlbums(albums: List<AlbumEntity>) {
+    override fun saveLocalAlbums(albums: List<AlbumEntity>) {
         localDbDao.insertAll(albums.map { it.toAlbumRoomEntity() })
-        cache.save(key = CacheKeys.ALBUMS, data = albums)
     }
 }

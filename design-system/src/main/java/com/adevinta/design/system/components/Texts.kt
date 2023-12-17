@@ -19,13 +19,13 @@ object DsTexts {
         align: TextAlign = TextAlign.Start
     ) =
         DsTextsImpl(
-        modifier = modifier,
-        text = text,
-        color = color,
-        style = MaterialTheme.typography.bodyLarge,
-        align = align,
-        maxLines = 1
-    )
+            modifier = modifier,
+            text = text,
+            color = color,
+            style = MaterialTheme.typography.bodyLarge,
+            align = align,
+            maxLines = 1
+        )
 
     @Composable
     fun TitleMedium(
@@ -41,6 +41,7 @@ object DsTexts {
             align = align,
             maxLines = 1
         )
+
     @Composable
     fun TitleLarge(
         modifier: Modifier = Modifier,

@@ -6,11 +6,4 @@ import com.adevinta.domain.di.domainModules
 import com.adevinta.home.di.homeModules
 import org.koin.dsl.module
 
-val appModules = module {
-    includes(
-        coreModules,
-        dataModules,
-        homeModules,
-        domainModules
-    )
-}
+val appModules = module { includes(coreModules, dataModules, homeModules, domainModules) }

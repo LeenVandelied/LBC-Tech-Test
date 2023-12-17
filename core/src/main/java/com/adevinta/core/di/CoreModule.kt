@@ -9,11 +9,7 @@ val dispatchersModule = module {
     single(named(MainDispatcher)) { Dispatchers.Default }
 }
 
-val coreModules = module {
-    includes(
-        dispatchersModule
-    )
-}
+val coreModules = module { includes(dispatchersModule) }
 
 const val IoDispatcher = "io_dispatcher"
 const val MainDispatcher = "main_dispatcher"

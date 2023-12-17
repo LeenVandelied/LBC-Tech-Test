@@ -8,10 +8,7 @@ import androidx.compose.ui.graphics.Color
 
 object DsSnackbars {
     @Composable
-    fun SnackbarError(
-        modifier: Modifier = Modifier,
-        message: String
-    ) =
+    fun SnackbarError(modifier: Modifier = Modifier, message: String) =
         SnackbarImpl(
             modifier = modifier,
             message = message,
@@ -27,11 +24,7 @@ private fun SnackbarImpl(
     containerColor: Color,
     contentColor: Color
 ) {
-    Snackbar(
-        modifier = modifier,
-        containerColor = containerColor,
-        contentColor = contentColor
-    ) {
+    Snackbar(modifier = modifier, containerColor = containerColor, contentColor = contentColor) {
         DsTexts.BodyMedium(title = message, color = contentColor)
     }
 }

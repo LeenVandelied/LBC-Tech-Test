@@ -44,8 +44,8 @@ paging-version = "3.3.0-alpha02"
 gson-version = "2.10.1"
 
 # Unit Testing
-junit-version = "4.13.2"
-mockito-core-version = "5.8.0"
+junit-version = "5.10.1"
+mockito-kotlin-version = "5.2.1"
 mockito-inline-version = "5.2.0"
 espresso-core-version = "3.5.1"
 
@@ -53,7 +53,6 @@ espresso-core-version = "3.5.1"
 agp-version = "8.1.2"
 org-jetbrains-kotlin-android-version = "1.8.10"
 appcompat = "1.6.1"
-junit = "1.1.5"
 ksp-version = "1.9.21-1.0.15"
 
 [libraries]
@@ -72,6 +71,7 @@ material3-window-size = { module = "androidx.compose.material3:material3-window-
 compose-ui = { module = "androidx.compose.ui:ui" }
 compose-tooling-preview = { module = "androidx.compose.ui:ui-tooling-preview" }
 compose-tooling = { module = "androidx.compose.ui:ui-tooling" }
+compose-activity = { module = "androidx.activity:activity-compose" }
 compose-icons-core = { module = "androidx.compose.material:material-icons-core" }
 compose-icons-extended = { module = "androidx.compose.material:material-icons-extended" }
 compose-lifecycle-view = { module = "androidx.lifecycle:lifecycle-viewmodel-compose", version.ref = "compose-lifecycle-view-version" }
@@ -111,14 +111,16 @@ room = { module = "androidx.room:room-ktx", version.ref = "room-version" }
 room-compiler = { module = "androidx.room:room-compiler", version.ref = "room-version" }
 paging-runtime = { module = "androidx.paging:paging-runtime", version.ref = "paging-version" }
 paging-compose = { module = "androidx.paging:paging-compose", version.ref = "paging-version" }
+room-paging = { module = "androidx.room:room-paging", version.ref = "room-version" }
 
 #Unit Test
 arch-core = { module = "androidx.arch.core:core-testing", version.ref = "androidx-arch-version" }
-junit = { module = "junit:junit", version.ref = "junit-version" }
+junit = { module = "org.junit.jupiter:junit-jupiter", version.ref = "junit-version" }
+junit-api = { module = "org.junit.jupiter:junit-jupiter-api", version.ref = "junit-version" }
+junit-engine = { module = "org.junit.jupiter:junit-jupiter-engine", version.ref = "junit-version" }
 kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "kotlin-coroutine-test-version" }
-mockito-core = { module = "org.mockito:mockito-core", version.ref = "mockito-core-version" }
+mockito-kotlin = { module = "org.mockito.kotlin:mockito-kotlin", version.ref = "mockito-kotlin-version" }
 mockito-inline = { module = "org.mockito:mockito-inline", version.ref = "mockito-inline-version" }
-androidx-test-ext-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junit" }
 espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espresso-core-version" }
 appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
 

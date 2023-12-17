@@ -14,6 +14,14 @@ dependencies {
     implementation(project(":data"))
     implementation(libs.core.ktx)
     implementation(libs.koin.android)
-    testImplementation(libs.mockito.core)
+    implementation(libs.room.paging)
+    implementation(libs.paging.runtime)
+    implementation(libs.paging.compose)
+    testImplementation(libs.mockito.kotlin)
     testImplementation(libs.junit)
+    testImplementation(libs.junit.api)
+    testImplementation(libs.kotlinx.coroutines.test)
+    testRuntimeOnly(libs.junit.engine)
 }
+
+tasks.withType<Test> { useJUnitPlatform() }
