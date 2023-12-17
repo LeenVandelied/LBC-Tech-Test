@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.Flow
 interface AlbumRepository {
     fun getAlbumsPaged(): Flow<PagingData<AlbumEntity>>
 
-    suspend fun refreshAlbums(): Result<List<AlbumEntity>>
+    suspend fun refreshAlbums(): Result<Unit>
 }
 
 internal class AlbumRepositoryImpl(
@@ -22,11 +22,11 @@ internal class AlbumRepositoryImpl(
         return albumLocalStore.getLocalAlbumsPaged()
     }
 
-    override suspend fun refreshAlbums(): Result<List<AlbumEntity>> {
+    override suspend fun refreshAlbums(): Result<Unit> {
         val remoteAlbumsResult = albumDataStore.getAlbums()
         if (remoteAlbumsResult.isSuccess) {
             remoteAlbumsResult.getOrNull()?.let { albumLocalStore.saveLocalAlbums(it) }
-            return remoteAlbumsResult
+            return Result.success(Unit)
         }
         return Result.failure(NoAlbumsException)
     }
