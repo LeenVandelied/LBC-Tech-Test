@@ -44,7 +44,6 @@ object DsButton {
         )
 }
 
-@OptIn(ExperimentalComposeUiApi::class)
 @Composable
 private fun DsButtonImpl(
     modifier: Modifier,

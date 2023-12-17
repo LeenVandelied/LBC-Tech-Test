@@ -85,7 +85,7 @@ internal fun AlbumListStateful(
         pullRefreshState = pullRefreshState,
         refreshing = isRefreshing
     ) { action ->
-        // Here we can manage all actions, we can add for exemple interaction with items in list
+        // Here we can manage all actions, we can add for example interaction with items in list
         when (action) {
             OnRefreshAction -> viewModel.refresh()
         }
@@ -156,7 +156,7 @@ private fun AlbumListScreen(
                                 Modifier.padding(top = paddings.calculateTopPadding())
                                     .fillMaxSize(),
                             title = R.string.no_album_error,
-                            description = R.string.an_error_occured_info,
+                            description = R.string.an_error_occurred_info,
                             buttonText = R.string.try_again,
                             onButtonClick = { actioner(OnRefreshAction) }
                         )
@@ -211,8 +211,8 @@ private fun AlbumListScreen(
                     DsEmptyStateScreen.Error(
                         modifier =
                             Modifier.padding(top = paddings.calculateTopPadding()).fillMaxSize(),
-                        title = R.string.an_error_occured,
-                        description = R.string.an_error_occured_info,
+                        title = R.string.an_error_occurred,
+                        description = R.string.an_error_occurred_info,
                         buttonText = R.string.try_again,
                         onButtonClick = { actioner(OnRefreshAction) }
                     )

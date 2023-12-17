@@ -56,6 +56,5 @@ class AlbumDataStoreImplTest {
         val result = albumDataStore.getAlbums()
 
         assertTrue(result.isFailure)
-        // Assurez-vous que le type d'exception et le message correspondent à ce que vous attendez
     }
 }
