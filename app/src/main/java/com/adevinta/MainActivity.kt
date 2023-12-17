@@ -1,4 +1,4 @@
-package com.adevinta.splash
+package com.adevinta
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity

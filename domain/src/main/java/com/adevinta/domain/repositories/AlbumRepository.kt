@@ -2,6 +2,7 @@ package com.adevinta.domain.repositories
 
 import androidx.paging.PagingData
 import com.adevinta.core.models.AlbumEntity
+import com.adevinta.core.models.NoAlbumsException
 import com.adevinta.data.album.AlbumDataStore
 import com.adevinta.data.album.AlbumLocalStore
 import kotlinx.coroutines.flow.Flow
@@ -9,7 +10,7 @@ import kotlinx.coroutines.flow.Flow
 interface AlbumRepository {
     fun getAlbumsPaged(): Flow<PagingData<AlbumEntity>>
 
-    suspend fun refreshAlbums()
+    suspend fun refreshAlbums(): Result<List<AlbumEntity>>
 }
 
 internal class AlbumRepositoryImpl(
@@ -21,10 +22,12 @@ internal class AlbumRepositoryImpl(
         return albumLocalStore.getLocalAlbumsPaged()
     }
 
-    override suspend fun refreshAlbums() {
+    override suspend fun refreshAlbums(): Result<List<AlbumEntity>> {
         val remoteAlbumsResult = albumDataStore.getAlbums()
         if (remoteAlbumsResult.isSuccess) {
             remoteAlbumsResult.getOrNull()?.let { albumLocalStore.saveLocalAlbums(it) }
+            return remoteAlbumsResult
         }
+        return Result.failure(NoAlbumsException)
     }
 }

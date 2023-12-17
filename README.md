@@ -89,6 +89,10 @@ Des tests unitaires ont été écrits pour chaque composant clé en utilisant Ju
 - Les données sont récupérés de Room à chaque fois, l'appel distant n'est là que pour mettre à jour la BDD
 - Formatage Kotlin Style Guide
 - J'ai commencé le projet avec PaperDB et la gestion du cache, je me suis formé sur Room pour les besoins de performance du test
+- J'ai choisi dans le cadre du test de ne pas gérer la synchronisation des données distantes, en effet si la requête venait à ne retourner que 100 éléments, Room aurait toujours en mémoire les 5000. Deux solutions possibles, la première, supprimer toute la BDD avant chaque rafraichissement de donnée, méthode simple mais couteuse en performance. La seconde synchroniser de manière intelligente en comparant les données récupérée et celles déjà stockées pour affecter seulement les différences.
+- Compose Navigation est mis en place malgré l'unique destination. Simplement pour donner un exemple.
+- Mise en place d'un Design system simple pour la démo, largement sous utilisé dans le cadre de ce test
+- Spark Design system n'a pas été choisi, le temps d'adaptation et le fait qu'il ne soit plus maintenu depuis fin 2022 m'ont poussé à faire l'impasse dessus dans le cadre de ce test.
 
 ## Alternatives
 

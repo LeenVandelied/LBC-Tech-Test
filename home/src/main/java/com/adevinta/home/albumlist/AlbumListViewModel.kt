@@ -40,6 +40,9 @@ internal class AlbumListViewModel(
     fun refresh() {
         viewModelScope.launch {
             refreshAlbumsUseCase.invoke()
+                .onFailure {
+                    _sideEffect.send(it)
+                }
             getAlbums()
         }
     }
