@@ -19,7 +19,6 @@ class AlbumLocalStoreImplTest {
 
         albumLocalStore.saveLocalAlbums(albums)
 
-        // Verify that localDbDao.insertAll is called with the correct parameters.
         verify(mockLocalDbDao).insertAll(albums.map { it.toAlbumRoomEntity() })
     }
 }
