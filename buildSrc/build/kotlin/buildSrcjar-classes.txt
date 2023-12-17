@@ -1,1 +1,0 @@
-/Users/herrh/AndroidStudioProjects/LBCTechTest/buildSrc/build/classes/kotlin/main/AdevintaConfig$Android.class:/Users/herrh/AndroidStudioProjects/LBCTechTest/buildSrc/build/classes/kotlin/main/AdevintaConfig$Versions.class:/Users/herrh/AndroidStudioProjects/LBCTechTest/buildSrc/build/classes/kotlin/main/AdevintaConfig.class

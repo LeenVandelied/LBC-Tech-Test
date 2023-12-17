@@ -3,6 +3,7 @@
 androidx-lifecycle-version = "2.6.2"
 androidx-arch-version = "2.2.0"
 core-ktx-version = "1.12.0"
+core-splashscreen-version = "1.0.1"
 
 # Compose
 bom-compose-version = "2023.10.01"
@@ -16,34 +17,43 @@ glide-compose-version = "1.0.0-alpha.5"
 
 # Kotlin
 kotlin-version = "1.9.0"
-kotlin-gradle-plugin-version = "1.8.10"
+kotlin-gradle-plugin-version = "1.9.0"
 kotlin-serialization-version = "1.6.0"
 kotlin-coroutine-test-version = "1.7.2"
 
-#Koin
+# Koin
 koin-version = "3.4.3"
+
+# okhttp
+okhttp-version = "4.11.0"
+okhttp-curl-version = "1.0.4"
 
 # Material
 material-version = "1.10.0"
+material-pullrefresh-version = "1.0.0"
 
 # Retrofit
 retrofit-coroutines-adapter-version = "0.9.2"
 retrofit-gson-version = "2.7.1"
 
+# room
+room-version = "2.6.1"
+paging-version = "3.3.0-alpha02"
+
 # Gson
 gson-version = "2.10.1"
 
 # Unit Testing
-junit-version = "4.13.2"
-mockito-core-version = "3.3.3"
-mockito-inline-version = "2.13.0"
+junit-version = "5.10.1"
+mockito-kotlin-version = "5.2.1"
+mockito-inline-version = "5.2.0"
 espresso-core-version = "3.5.1"
 
 # Plugin
 agp-version = "8.1.2"
 org-jetbrains-kotlin-android-version = "1.8.10"
 appcompat = "1.6.1"
-junit = "1.1.5"
+ksp-version = "1.9.21-1.0.15"
 
 [libraries]
 #AndroidX
@@ -52,6 +62,7 @@ lifecycle-extension = { module = "androidx.lifecycle:lifecycle-extensions", vers
 lifecycle-viewmodel = { module = "androidx.lifecycle:lifecycle-viewmodel", version.ref = "androidx-lifecycle-version" }
 lifecycle-viewmodel-ktx = { module = "androidx.lifecycle:lifecycle-viewmodel-ktx", version.ref = "androidx-lifecycle-version" }
 lifecycle-runtime-ktx = { module = "androidx.lifecycle:lifecycle-runtime-ktx", version.ref = "androidx-lifecycle-version" }
+core-splashscreen = { module = "androidx.core:core-splashscreen", version.ref = "core-splashscreen-version" }
 
 #Compose
 bom-compose = { module = "androidx.compose:compose-bom", version.ref = "bom-compose-version" }
@@ -60,6 +71,7 @@ material3-window-size = { module = "androidx.compose.material3:material3-window-
 compose-ui = { module = "androidx.compose.ui:ui" }
 compose-tooling-preview = { module = "androidx.compose.ui:ui-tooling-preview" }
 compose-tooling = { module = "androidx.compose.ui:ui-tooling" }
+compose-activity = { module = "androidx.activity:activity-compose" }
 compose-icons-core = { module = "androidx.compose.material:material-icons-core" }
 compose-icons-extended = { module = "androidx.compose.material:material-icons-extended" }
 compose-lifecycle-view = { module = "androidx.lifecycle:lifecycle-viewmodel-compose", version.ref = "compose-lifecycle-view-version" }
@@ -71,33 +83,48 @@ glide = { module = "com.github.bumptech.glide:glide", version.ref = "glide-versi
 glide-compose = { module = "com.github.bumptech.glide:compose", version.ref = "glide-compose-version" }
 
 #Kotlin
-kotlin-stdlib = { module = "org.jetbrains.kotlin:kotlin-stdlib-jdk8", version.ref = "kotlin-version"}
-kotlin-gradle-plugin-serialization = { module = "org.jetbrains.kotlin:kotlin-serialization", version.ref = "kotlin-version"}
+kotlin-stdlib = { module = "org.jetbrains.kotlin:kotlin-stdlib-jdk8", version.ref = "kotlin-version" }
+kotlin-gradle-plugin-serialization = { module = "org.jetbrains.kotlin:kotlin-serialization", version.ref = "kotlin-version" }
 kotlin-gradle-plugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin-gradle-plugin-version" }
-kotlin-serialization = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlin-serialization-version"}
+kotlin-serialization = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlin-serialization-version" }
 
 #Koin
 koin-android = { module = "io.insert-koin:koin-android", version.ref = "koin-version" }
 koin-compose = { module = "io.insert-koin:koin-androidx-compose", version.ref = "koin-version" }
 
+#OkHttp
+okhttp = { module = "com.squareup.okhttp3:okhttp", version.ref = "okhttp-version" }
+okhttp-curl = { module = "com.github.techvein:okhttp-curl-logging", version.ref = "okhttp-curl-version" }
+
 #Material
 material = { module = "com.google.android.material:material", version.ref = "material-version" }
+material-pullrefresh = { module = "eu.bambooapps:compose-material3-pullrefresh", version.ref = "material-pullrefresh-version" }
 
 #Retrofit
 retrofit-coroutine = { module = "com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter", version.ref = "retrofit-coroutines-adapter-version" }
 retrofit-gson = { module = "com.squareup.retrofit2:converter-gson", version.ref = "retrofit-gson-version" }
 gson = { module = "com.google.code.gson:gson", version.ref = "gson-version" }
 
+#room
+room-runtime = { module = "androidx.room:room-runtime", version.ref = "room-version" }
+room = { module = "androidx.room:room-ktx", version.ref = "room-version" }
+room-compiler = { module = "androidx.room:room-compiler", version.ref = "room-version" }
+paging-runtime = { module = "androidx.paging:paging-runtime", version.ref = "paging-version" }
+paging-compose = { module = "androidx.paging:paging-compose", version.ref = "paging-version" }
+room-paging = { module = "androidx.room:room-paging", version.ref = "room-version" }
+
 #Unit Test
 arch-core = { module = "androidx.arch.core:core-testing", version.ref = "androidx-arch-version" }
-junit = { module = "junit:junit", version.ref = "junit-version" }
+junit = { module = "org.junit.jupiter:junit-jupiter", version.ref = "junit-version" }
+junit-api = { module = "org.junit.jupiter:junit-jupiter-api", version.ref = "junit-version" }
+junit-engine = { module = "org.junit.jupiter:junit-jupiter-engine", version.ref = "junit-version" }
 kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "kotlin-coroutine-test-version" }
-mockito-core = { module = "org.mockito:mockito-core", version.ref = "mockito-core-version" }
+mockito-kotlin = { module = "org.mockito.kotlin:mockito-kotlin", version.ref = "mockito-kotlin-version" }
 mockito-inline = { module = "org.mockito:mockito-inline", version.ref = "mockito-inline-version" }
-androidx-test-ext-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junit" }
 espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espresso-core-version" }
 appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
 
 [plugins]
 com-android-application = { id = "com.android.application", version.ref = "agp-version" }
 org-jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "org-jetbrains-kotlin-android-version" }
+com-google-devtools-ksp = { id = "com.google.devtools.ksp", version.ref = "ksp-version" }

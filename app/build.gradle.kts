@@ -1,23 +1,16 @@
+@Suppress("DSL_SCOPE_VIOLATION")
 plugins {
-    id("com.android.application")
-    id("org.jetbrains.kotlin.android")
+    alias(libs.plugins.com.android.application)
+    kotlin("android")
 }
 
 android {
-    compileSdk = AdevintaConfig.Android.compileSdkVersion
-    namespace = "com.example.lbctechtest"
+    namespace = "com.adevinta.lbctechtest"
+    android.buildFeatures.buildConfig = true
 
     defaultConfig {
-        applicationId = "com.example.lbctechtest"
-        minSdk = AdevintaConfig.Android.minSdkVersion
-        targetSdk = AdevintaConfig.Android.targetSdkVersion
         versionCode = AdevintaConfig.Versions.code
         versionName = AdevintaConfig.Versions.name
-
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        vectorDrawables {
-            useSupportLibrary = true
-        }
     }
 
     buildTypes {
@@ -29,27 +22,18 @@ android {
             )
         }
     }
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
-    }
-    kotlinOptions {
-        jvmTarget = "1.8"
-    }
-    buildFeatures {
-        compose = true
-    }
-    composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.1"
-    }
-    packaging {
-        resources {
-            excludes += "/META-INF/{AL2.0,LGPL2.1}"
-        }
-    }
+
+    buildFeatures { compose = true }
+
+    composeOptions { kotlinCompilerExtensionVersion = "1.5.1" }
 }
 
 dependencies {
+    implementation(project(":core"))
+    implementation(project(":data"))
+    implementation(project(":domain"))
+    implementation(project(":home"))
+    implementation(project(":design-system"))
 
     implementation(libs.core.ktx)
     implementation(libs.kotlin.stdlib)
@@ -65,4 +49,5 @@ dependencies {
     implementation(libs.compose.icons.extended)
     implementation(libs.compose.nav)
     implementation(libs.material3.window.size)
+    implementation(libs.core.splashscreen)
 }
