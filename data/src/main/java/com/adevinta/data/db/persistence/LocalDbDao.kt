@@ -8,7 +8,9 @@ import com.adevinta.data.models.database.AlbumRoomEntity
 
 @Dao
 interface LocalDbDao {
-    @Query("SELECT * FROM albums") fun getAllPaged(): PagingSource<Int, AlbumRoomEntity>
+    @Query("SELECT * FROM albums")
+    fun getAllPaged(): PagingSource<Int, AlbumRoomEntity>
 
-    @Upsert fun insertAll(albums: List<AlbumRoomEntity>)
+    @Upsert
+    fun insertAll(albums: List<AlbumRoomEntity>)
 }

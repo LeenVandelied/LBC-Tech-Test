@@ -7,8 +7,8 @@ import kotlinx.coroutines.CoroutineDispatcher
 internal class RefreshAlbumsUseCase(
     dispatcherIo: CoroutineDispatcher,
     private val albumRepository: AlbumRepository
-) : UseCase<Unit>(dispatcherIo) {
-    override suspend fun execute() {
+) : UseCase<Result<Unit>>(dispatcherIo) {
+    override suspend fun execute(): Result<Unit> {
         return albumRepository.refreshAlbums()
     }
 }

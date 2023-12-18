@@ -91,6 +91,7 @@ internal fun AlbumListStateful(
         }
     }
 
+    // Here we manage errors with a snackBar
     LaunchedEffect(sideEffect) {
         sideEffect
             .onEach {

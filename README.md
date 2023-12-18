@@ -36,7 +36,7 @@ Ce document présente la documentation technique pour l'application Android dév
 ### 2. Module `Core`
 
 -   **Modèles de Base**: Contient les entités et les modèles de données utilisés côté Vue de l'application.
--   **Extensions**: Contient les extensions utiles pour faciliter l'utilisation de certain composants.
+-   **Extensions**: Contient les extensions utiles pour faciliter l'utilisation de certains composants.
 
 ### 3. Module `Data`
 
@@ -61,7 +61,7 @@ Ce document présente la documentation technique pour l'application Android dév
 -   **Écran Principal**: Implémentation de l'interface utilisateur de l'écran principal.
 -   **Navigation Compose**: Définition des routes de l'écran principal.
 -   **Stateful**: Gestion de l'état de l'UI, la logique de présentation et les actions utilisateur.
--   **ViewModel**: Gestion des appels au ressources dans le domain. Gestion des états des StateFlow.
+-   **ViewModel**: Gestion des appels aux ressources dans le domain. Gestion des états des StateFlow.
 -   **Actioner**: Gestion des différentes actions possibles sur la Vue.
 -   **Usecases Spécifiques**: Opérations liées spécifiquement à l'écran principal.
 
@@ -72,6 +72,7 @@ Ce document présente la documentation technique pour l'application Android dév
 ## Tests et Performance
 
 Des tests unitaires ont été écrits pour chaque composant clé en utilisant Junit5 et Mockito-Kotlin, assurant la robustesse et la fiabilité de l'application. Les performances de l'application ont été optimisées grâce à une gestion efficace des ressources avec Room et Paging3, permettant la pagination des résultats. De plus Glide peut gérer naturellement la mise en cache des images.
+Les tests développés en priorité sont situés sur les appels permettant la récupération de donnée LocalStore et DataStore, mais également sur les Repository et les Usecases.
 
 ## Fonctionnalités
 
@@ -80,15 +81,19 @@ Des tests unitaires ont été écrits pour chaque composant clé en utilisant Ju
 - Gestions des statuts des images et affichage de placeholders
 - PullRefresh sur la liste ( Pas de mise à jour car données statiques )
 - Possibilité de recharger sur les écrans d'erreur
-- 
+- Gestion de configuration d'orientation de l'écran
 
 ## Choix généraux
 
 - Commentaires en Anglais et documentation en Français dans le cadre du test.
 - A chaque lancement les données Room sont actualisées en quête de changement
-- Les données sont récupérés de Room à chaque fois, l'appel distant n'est là que pour mettre à jour la BDD
+- Les données sont récupérées de Room à chaque fois, l'appel distant n'est là que pour mettre à jour la BDD
 - Formatage Kotlin Style Guide
 - J'ai commencé le projet avec PaperDB et la gestion du cache, je me suis formé sur Room pour les besoins de performance du test
+- J'ai choisi dans le cadre du test de ne pas gérer la synchronisation des données distantes, en effet si la requête venait à ne retourner que 100 éléments, Room aurait toujours en mémoire les 5000. Deux solutions possibles, la première, supprimer toute la BDD avant chaque rafraichissement de donnée, méthode simple mais couteuse en performance. La seconde synchroniser de manière intelligente en comparant les données récupérée et celles déjà stockées pour affecter seulement les différences.
+- Compose Navigation est mis en place malgré l'unique destination. Simplement pour donner un exemple.
+- Mise en place d'un Design system simple pour la démo, largement sous utilisé dans le cadre de ce test
+- Spark Design system n'a pas été choisi, le temps d'adaptation et le fait qu'il ne soit plus maintenu depuis fin 2022 m'ont poussé à faire l'impasse dessus dans le cadre de ce test.
 
 ## Alternatives
 

@@ -9,6 +9,7 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.mockito.kotlin.mock
 import org.mockito.kotlin.verify
+import org.mockito.kotlin.whenever
 
 @ExperimentalCoroutinesApi
 class RefreshAlbumsUseCaseTest {
@@ -16,7 +17,6 @@ class RefreshAlbumsUseCaseTest {
     private lateinit var albumRepository: AlbumRepository
     private lateinit var refreshAlbumsUseCase: RefreshAlbumsUseCase
     private val testDispatcher: CoroutineDispatcher = UnconfinedTestDispatcher()
-
     @BeforeEach
     fun setUp() {
         albumRepository = mock()
@@ -24,10 +24,20 @@ class RefreshAlbumsUseCaseTest {
     }
 
     @Test
-    fun `execute calls refreshAlbums on albumRepository`() =
-        runTest(testDispatcher) {
-            refreshAlbumsUseCase.execute()
+    fun `refreshAlbums should call refreshAlbums on repository`() = runTest(testDispatcher) {
+        whenever(albumRepository.refreshAlbums()).thenReturn(Result.success(Unit))
 
-            verify(albumRepository).refreshAlbums()
-        }
+        refreshAlbumsUseCase.execute()
+
+        verify(albumRepository).refreshAlbums()
+    }
+
+    @Test
+    fun `refreshAlbums should handle failure`() = runTest(testDispatcher) {
+        whenever(albumRepository.refreshAlbums()).thenReturn(Result.failure(com.adevinta.core.models.NoAlbumsException))
+
+        val result = refreshAlbumsUseCase.execute()
+
+        assert(result.isFailure)
+    }
 }
