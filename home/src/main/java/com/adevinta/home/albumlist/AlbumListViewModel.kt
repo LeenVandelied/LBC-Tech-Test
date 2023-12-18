@@ -25,6 +25,8 @@ internal class AlbumListViewModel(
     private val _sideEffect = Channel<Throwable>(Channel.BUFFERED)
     internal val sideEffect = _sideEffect.receiveAsFlow()
 
+    // we call refresh to always have fresh data when the app is loaded.
+    // Another way would have been to retrieve the data from the database directly and ask the user to force a refresh, this would have allowed better performance when launching the application
     init {
         refresh()
     }

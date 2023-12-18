@@ -11,6 +11,7 @@ import com.adevinta.data.mapper.toAlbumRoomEntity
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
+// LocalStore get Data from ROOM
 interface AlbumLocalStore {
     fun getLocalAlbumsPaged(): Flow<PagingData<AlbumEntity>>
 
@@ -18,6 +19,7 @@ interface AlbumLocalStore {
 }
 
 internal class AlbumLocalStoreImpl(private val localDbDao: LocalDbDao) : AlbumLocalStore {
+    // Use Paging3 to manage pagination
     override fun getLocalAlbumsPaged(): Flow<PagingData<AlbumEntity>> =
         Pager(
                 config = PagingConfig(pageSize = 20, enablePlaceholders = true, maxSize = 200),

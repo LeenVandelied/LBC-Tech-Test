@@ -22,6 +22,7 @@ internal class AlbumRepositoryImpl(
         return albumLocalStore.getLocalAlbumsPaged()
     }
 
+    // During the refresh we set the datas in ROOM
     override suspend fun refreshAlbums(): Result<Unit> {
         val remoteAlbumsResult = albumDataStore.getAlbums()
         if (remoteAlbumsResult.isSuccess) {
